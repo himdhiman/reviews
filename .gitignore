@@ -1,3 +1,7 @@
+# Custom files
+environment_variables.py
+client_secret.json
+
 # Django #
 *.log
 *.pot
@@ -5,7 +9,7 @@
 __pycache__
 db.sqlite3
 media
-environment_variables.py
+
 
 # Backup files # 
 *.bak 
