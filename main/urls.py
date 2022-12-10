@@ -1,3 +1,6 @@
-from django.urls import include
+from django.urls import path
+from main import views
 
-urlpatterns = []
+urlpatterns = [
+    path("", views.DefaultView.as_view()),
+]

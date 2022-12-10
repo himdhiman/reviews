@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from reviews import environment_variables
 
@@ -59,8 +60,12 @@ WSGI_APPLICATION = "reviews.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": 5432,
     }
 }
 
@@ -98,7 +103,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+
+# Media files
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 
 # CORS configurations
 
@@ -108,3 +121,5 @@ CORS_ALLOW_CREDENTIALS = True
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRED_PATH = os.path.join(BASE_DIR, environment_variables.CRED_PATH)

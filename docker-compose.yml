@@ -1,0 +1,46 @@
+version: "3.8"
+
+networks:
+  reviews_network:
+    name: reviews_network
+    driver: bridge
+    attachable: false
+
+services:
+  reviews_web:
+    build: .
+    container_name: reviews_web
+    command: >
+      sh -c "python3 manage.py wait_for_db &&
+             gunicorn reviews.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - reviews_db
+    networks:
+      - reviews_network
+  reviews_db:
+    image: postgres
+    container_name: reviews_db
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    networks:
+      - reviews_network
+  nginx:
+    image: nginx
+    networks:
+      - reviews_network
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - reviews_web
+volumes:
+  pgdata:
+  
