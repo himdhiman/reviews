@@ -13,7 +13,7 @@ from rest_framework import permissions, status
 class DefaultView(APIView):
     permission_classes = (permissions.AllowAny,)
 
-    def get(self, request):
+    def post(self, request):
         # get_data()
         
         # writing Headers
