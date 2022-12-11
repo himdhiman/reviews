@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
+
 from reviews import environment_variables
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
