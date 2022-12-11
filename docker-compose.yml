@@ -12,6 +12,9 @@ services:
     container_name: reviews_web
     command: >
       sh -c "python3 manage.py wait_for_db &&
+              python3 manage.py makemigrations &&
+              python3 manage.py migrate &&
+              python3 manage.py create_superuser &&
              gunicorn reviews.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/app
@@ -19,6 +22,26 @@ services:
       - .env
     depends_on:
       - reviews_db
+    networks:
+      - reviews_network
+  redis:
+    image: redis
+    command: redis-server
+    volumes:
+      - .:/app
+    networks:
+      - reviews_network
+  celery:
+    build: .
+    command: celery -A reviews.celery worker -l debug
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - reviews_web
+      - reviews_db
+      - redis
     networks:
       - reviews_network
   reviews_db:
@@ -43,4 +66,3 @@ services:
       - reviews_web
 volumes:
   pgdata:
-  

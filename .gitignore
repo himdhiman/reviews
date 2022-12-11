@@ -3,6 +3,7 @@ environment_variables.py
 client_secret.json
 *.pem
 commands.txt
+static/
 
 # Django #
 *.log

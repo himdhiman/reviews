@@ -15,7 +15,5 @@ class DefaultView(APIView):
 
     def post(self, request):
         # get_data()
-        
-  
 
         return Response(status=status.HTTP_200_OK)
