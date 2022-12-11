@@ -1,6 +1,7 @@
 # Custom files
 environment_variables.py
 client_secret.json
+*.pem
 
 # Django #
 *.log
