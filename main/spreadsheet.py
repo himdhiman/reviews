@@ -17,6 +17,6 @@ def get_data():
     return data
 
 # # Extract and print all of the values
-sheet_instance = sheet_review.get_worksheet(0)
-data = sheet_instance.get_all_records()
-print(data)
+# sheet_instance = sheet_review.get_worksheet(0)
+# data = sheet_instance.get_all_records()
+# print(data)
