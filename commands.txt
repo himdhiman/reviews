@@ -1,0 +1,1 @@
+ssh -i "reviews.pem" ubuntu@ec2-3-236-234-22.compute-1.amazonaws.com
