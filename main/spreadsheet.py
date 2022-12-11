@@ -17,5 +17,5 @@ def get_data():
     return data
 
 # # Extract and print all of the values
-# list_of_hashes = sheet.get_all_records()
-# print(list_of_hashes)
+list_of_hashes = sheet_orders.get_all_records()
+print(list_of_hashes)

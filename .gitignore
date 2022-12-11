@@ -2,6 +2,7 @@
 environment_variables.py
 client_secret.json
 *.pem
+commands.txt
 
 # Django #
 *.log
