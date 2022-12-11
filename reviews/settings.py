@@ -60,6 +60,8 @@ WSGI_APPLICATION = "reviews.wsgi.application"
 
 ADMINS = environment_variables.ADMINS
 
+TRACKING_MESSAGE = environment_variables.TRACKING_MESSAGE
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Database
