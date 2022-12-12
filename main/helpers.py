@@ -65,4 +65,6 @@ class GetPushData:
 class PushData:
     @staticmethod
     def push_data(data):
-        print(data)
+        SHEET_REVIEWS = settings.GOOGLE_SHEETS_CLIENT.open(settings.REVIEW_SHEET_NAME)
+        sheet_instance = SHEET_REVIEWS.get_worksheet(0)
+        sheet_instance.append_row(data)
