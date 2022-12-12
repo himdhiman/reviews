@@ -8,8 +8,6 @@ from main.models import TrackingList
 from main.serializers import TrackingListSerializer
 from main import tasks
 
-# from main.spreadsheet import get_data
-
 
 class DefaultView(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -34,13 +32,11 @@ class DefaultView(APIView):
             elif not query_object.second_message:
                 query_object.second_message = message
                 query_object.save()
-            else:
                 data = TrackingListSerializer(query_object).data
                 query_object.delete()
                 tasks.populateReview.delay(data)
             return Response(status=status.HTTP_200_OK)
 
-        
         message, filtered_data = FilterData.filter_data(request_data)
 
         if message == settings.TRACKING_MESSAGE:

@@ -29,10 +29,13 @@ services:
     command: redis-server
     volumes:
       - .:/app
+    env_file:
+      - redis.env
     networks:
       - reviews_network
   celery:
     build: .
+    container_name: reviews_celery_worker
     command: celery -A reviews.celery worker -l debug
     volumes:
       - .:/app
@@ -42,6 +45,21 @@ services:
       - reviews_web
       - reviews_db
       - redis
+    networks:
+      - reviews_network
+  celery-beat:
+    build: .
+    container_name: reviews_celery_beat
+    command: celery -A reviews beat -l info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - reviews_web
+      - reviews_db
+      - redis
+      - celery
     networks:
       - reviews_network
   reviews_db:

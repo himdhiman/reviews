@@ -13,3 +13,12 @@ class TrackingList(models.Model):
 
     def __str__(self):
         return self.name + " | " + self.phone_number
+
+
+class Product(models.Model):
+    sku_number = models.CharField(max_length=40)
+    product_name = models.CharField(max_length=256)
+    variant_id = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.sku_number + " | " + self.product_name

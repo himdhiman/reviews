@@ -1,5 +1,7 @@
 import os
+import gspread
 from pathlib import Path
+from oauth2client.service_account import ServiceAccountCredentials
 
 from reviews import environment_variables
 
@@ -63,6 +65,8 @@ WSGI_APPLICATION = "reviews.wsgi.application"
 ADMINS = environment_variables.ADMINS
 
 TRACKING_MESSAGE = environment_variables.TRACKING_MESSAGE
+
+TRACKINGLIST_CLEANUP_INTERVAL = environment_variables.TRACKINGLIST_CLEANUP_INTERVAL
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -132,9 +136,6 @@ CORS_ALLOW_CREDENTIALS = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CRED_PATH = os.path.join(BASE_DIR, environment_variables.CRED_PATH)
-
-
 # Celery Settings
 
 CELERY_BROKER_URL = os.environ.get("REDIS_HOST")
@@ -147,3 +148,23 @@ CELERY_TIMEZONE = "Asia/Kolkata"
 CELERY_RESULT_BACKEND = "django-db"
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+
+# Google Sheets API Configuration
+
+GOOGLE_SHEETS_CLIENT = gspread.authorize(
+    ServiceAccountCredentials.from_json_keyfile_name(
+        os.path.join(BASE_DIR, environment_variables.CRED_PATH),
+        environment_variables.GOOGLE_SCOPES,
+    )
+)
+
+ORDER_SHEET_NAME = environment_variables.ORDER_SHEET_NAME
+REVIEW_SHEET_NAME = environment_variables.REVIEW_SHEET_NAME
+
+DATABASE_SYNC_PRODUCT_ID_WIH_SKU_INTERVAL = (
+    environment_variables.DATABASE_SYNC_PRODUCT_ID_WIH_SKU_INTERVAL
+)
+
+# SHEET_ORDERS = GOOGLE_SHEETS_CLIENT.open(environment_variables.ORDER_SHEET_NAME)
+# SHEET_REVIEWS = GOOGLE_SHEETS_CLIENT.open(environment_variables.REVIEW_SHEET_NAME)
