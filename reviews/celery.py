@@ -24,9 +24,7 @@ app.conf.beat_schedule = {
     },
     "tracking-list-cleanup-and-push-data": {
         "task": "main.tasks.cleanReviews",
-        "schedule": timedelta(
-            hours=settings.TRACKINGLIST_CLEANUP_INTERVAL
-        ),
+        "schedule": timedelta(hours=settings.TRACKINGLIST_CLEANUP_INTERVAL),
     },
 }
 

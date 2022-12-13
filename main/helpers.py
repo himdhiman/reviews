@@ -27,6 +27,7 @@ class IsInTrackingList:
         else:
             return False
 
+
 class GetPushData:
     @staticmethod
     def get_push_data(context):
@@ -44,21 +45,26 @@ class GetPushData:
         required_data[-1] = [i.strip() for i in required_data[-1].split("\n") if i]
         product_list = []
         variant_list = []
+        push_data = []
         for i in required_data[-1]:
             qs = Product.objects.filter(sku_number=i)
             if len(qs) != 0:
                 product_list.append(qs[0].product_name)
                 variant_list.append(qs[0].variant_id)
-        push_data = [
-            context["first_message"],
-            context["second_message"],
-            5,
-            context["created_at"],
-            context["name"],
-            context["mail_id"],
-            str(variant_list),
-            str(product_list),
-        ]
+        for i in range(len(product_list)):
+            push_data.append(
+                [
+                    context["first_message"],
+                    context["second_message"],
+                    5,
+                    "",
+                    context["name"],
+                    context["mail_id"],
+                    str(variant_list[i]),
+                    product_list[i],
+                ]
+            )
+    
         return push_data
 
 
@@ -67,5 +73,5 @@ class PushData:
     def push_data(data):
         SHEET_REVIEWS = settings.GOOGLE_SHEETS_CLIENT.open(settings.REVIEW_SHEET_NAME)
         sheet_instance = SHEET_REVIEWS.get_worksheet(0)
-        sheet_instance.append_row(data)
+        sheet_instance.append_rows(data)
         return

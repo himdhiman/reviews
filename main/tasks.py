@@ -42,7 +42,9 @@ def cleanReviews(self):
     for i in qs:
         utc_time = i.created_at
         ist_time = utc_time.astimezone(gettz(settings.TIME_ZONE)).replace(tzinfo=None)
-        if ((curr_time - ist_time).seconds)/3600 >= settings.TRACKINGLIST_CLEANUP_INTERVAL:
+        if (
+            (curr_time - ist_time).seconds
+        ) / 3600 >= settings.TRACKINGLIST_CLEANUP_INTERVAL:
             context = TrackingListSerializer(i).data
             push_data = GetPushData.get_push_data(context)
             PushData.push_data(push_data)
