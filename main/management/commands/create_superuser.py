@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        if User.objects.count() == 0:
-            for user in settings.ADMINS:
+        users_list = settings.ADMINS
+        for user in users_list:
+            qs = User.objects.filter(email=user[1])
+            if len(qs) == 0:
                 username = user[0].replace(" ", "")
                 email = user[1]
                 password = user[2]
@@ -17,5 +19,7 @@ class Command(BaseCommand):
                 admin.is_active = True
                 admin.is_admin = True
                 admin.save()
-        else:
-            print("Admin accounts can only be initialized if no Accounts exist")
+            else:
+                print(f"User {qs.first().email} already exists")
+        return
+

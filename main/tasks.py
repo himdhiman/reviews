@@ -28,15 +28,11 @@ def syncProductIdAndName(self):
 
 
 @shared_task(bind=True)
-def populateReview(self, context):
-    push_data = GetPushData.get_push_data(context)
-    PushData.push_data(push_data)
-    pass
-
-
-@shared_task(bind=True)
 def cleanReviews(self):
     print("Clean Reviews Called")
+    SHEET_ORDERS = settings.GOOGLE_SHEETS_CLIENT.open(settings.ORDER_SHEET_NAME)
+    sheet_instance = SHEET_ORDERS.get_worksheet(0)
+    data = sheet_instance.get_values("A:D")
     qs = TrackingList.objects.all()
     curr_time = datetime.now()
     for i in qs:
@@ -46,7 +42,7 @@ def cleanReviews(self):
             (curr_time - ist_time).seconds
         ) / 3600 >= settings.TRACKINGLIST_CLEANUP_INTERVAL:
             context = TrackingListSerializer(i).data
-            push_data = GetPushData.get_push_data(context)
+            push_data = GetPushData.get_push_data(context, data)
             PushData.push_data(push_data)
             i.delete()
     pass

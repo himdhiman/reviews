@@ -32,9 +32,6 @@ class DefaultView(APIView):
             elif not query_object.second_message:
                 query_object.second_message = message
                 query_object.save()
-                data = TrackingListSerializer(query_object).data
-                query_object.delete()
-                tasks.populateReview.delay(data)
             return Response(status=status.HTTP_200_OK)
 
         message, filtered_data = FilterData.filter_data(request_data)

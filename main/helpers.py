@@ -30,10 +30,7 @@ class IsInTrackingList:
 
 class GetPushData:
     @staticmethod
-    def get_push_data(context):
-        SHEET_ORDERS = settings.GOOGLE_SHEETS_CLIENT.open(settings.ORDER_SHEET_NAME)
-        sheet_instance = SHEET_ORDERS.get_worksheet(0)
-        data = sheet_instance.get_values("A:D")
+    def get_push_data(context, data):
         required_data = []
         for row in data:
             if row[0] == context["product_id"]:
