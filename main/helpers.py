@@ -32,17 +32,29 @@ class GetPushData:
     @staticmethod
     def get_push_data(context, data):
         required_data = []
+        push_data = []
         for row in data:
             if row[0] == context["product_id"]:
                 required_data = row
                 break
         if len(required_data) == 0:
             print("No Data Found")
-            return
+            push_data.append(
+                [
+                    context["first_message"],
+                    context["second_message"],
+                    5,
+                    "",
+                    context["name"],
+                    context["mail_id"],
+                    "",
+                    "",
+                ]
+            )
+            return push_data
         required_data[-1] = [i.strip() for i in required_data[-1].split("\n") if i]
         product_list = []
         variant_list = []
-        push_data = []
         for i in required_data[-1]:
             qs = Product.objects.filter(sku_number=i)
             if len(qs) != 0:
