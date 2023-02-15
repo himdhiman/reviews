@@ -1,4 +1,5 @@
 from django.conf import settings
+import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
@@ -16,6 +17,7 @@ class DefaultView(APIView):
         request_data = request.data
 
         if request_data["type"] != "message_received":
+            requests.post(settings.THIRD_PARTY_URL, data=request_data)
             return Response(status=status.HTTP_200_OK)
 
         phone_number = (
