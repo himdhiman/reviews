@@ -68,7 +68,7 @@ TRACKING_MESSAGE = environment_variables.TRACKING_MESSAGE
 
 TRACKINGLIST_CLEANUP_INTERVAL = environment_variables.TRACKINGLIST_CLEANUP_INTERVAL
 
-THIRD_APRTY_URL = environment_variables.THIRD_PARTY_URL
+THIRD_PARTY_URL = environment_variables.THIRD_PARTY_URL
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
