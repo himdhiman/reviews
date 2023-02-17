@@ -38,7 +38,6 @@ class DefaultView(APIView):
         message, filtered_data = FilterData.filter_data(request_data)
 
         if message == settings.TRACKING_MESSAGE:
-            print(filtered_data)
             TrackingList.objects.create(**filtered_data)
             return Response(status=status.HTTP_200_OK)
 

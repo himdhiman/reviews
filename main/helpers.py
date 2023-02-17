@@ -11,11 +11,11 @@ class FilterData:
             data["data"]["customer"]["country_code"]
             + data["data"]["customer"]["phone_number"]
         )
-        filtered_data["order_id"] = data["data"]["customer"]["traits"]["last_order_id"]
+        filtered_data["order_id"] = data["data"]["customer"]["traits"].get("last_order_id", 0)
         filtered_data["product_id"] = data["data"]["customer"]["traits"][
             "last_order_name"
         ]
-        filtered_data["mail_id"] = data["data"]["customer"]["traits"]["Email Id"]
+        filtered_data["mail_id"] = data["data"]["customer"]["traits"].get("Email Id", "")
         return data["data"]["message"]["message"], filtered_data
 
 
