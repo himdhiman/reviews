@@ -6,8 +6,6 @@ from rest_framework import permissions, status
 
 from main.helpers import FilterData, IsInTrackingList
 from main.models import TrackingList
-from main.serializers import TrackingListSerializer
-from main import tasks
 
 
 class DefaultView(APIView):
@@ -17,7 +15,8 @@ class DefaultView(APIView):
         request_data = request.data
 
         if request_data["type"] != "message_received":
-            requests.post(settings.THIRD_PARTY_URL, data=request_data)
+            req = requests.post(settings.THIRD_PARTY_URL, data=request_data)
+            print(req)
             return Response(status=status.HTTP_200_OK)
 
         phone_number = (
