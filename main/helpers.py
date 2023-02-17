@@ -12,9 +12,8 @@ class FilterData:
             + data["data"]["customer"]["phone_number"]
         )
         filtered_data["order_id"] = data["data"]["customer"]["traits"].get("last_order_id", 0)
-        filtered_data["product_id"] = data["data"]["customer"]["traits"][
-            "last_order_name"
-        ]
+        filtered_data["product_id"] = data["data"]["customer"]["traits"].get(
+            "last_order_name", "")
         filtered_data["mail_id"] = data["data"]["customer"]["traits"].get("Email Id", "")
         return data["data"]["message"]["message"], filtered_data
 
@@ -33,6 +32,21 @@ class GetPushData:
     def get_push_data(context, data):
         required_data = []
         push_data = []
+        if context["product_id"] == "":
+            print("No Product Id")
+            push_data.append(
+                [
+                    context["first_message"],
+                    context["second_message"],
+                    5,
+                    "",
+                    context["name"],
+                    context["mail_id"],
+                    "",
+                    "",
+                ]
+            )
+            return push_data
         for row in data:
             if row[0] == context["product_id"]:
                 required_data = row
