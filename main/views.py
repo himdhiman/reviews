@@ -14,7 +14,10 @@ class DefaultView(APIView):
     def post(self, request):
         request_data = request.data
 
+        print(request_data)
+
         if request_data["type"] != "message_received":
+            print("Inside the request !!!")
             req = requests.post(settings.THIRD_PARTY_URL, data=request_data)
             print(req)
             return Response(status=status.HTTP_200_OK)
