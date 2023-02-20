@@ -18,7 +18,7 @@ class DefaultView(APIView):
 
         if request_data["type"] != "message_received":
             print("Inside the request !!!")
-            req = requests.post(settings.THIRD_PARTY_URL, data=request_data, headers={
+            req = requests.post(settings.THIRD_PARTY_URL, json=request_data, headers={
                 "Content-Type": "application/json",
             })
             print(req)
