@@ -13,7 +13,6 @@ class DefaultView(APIView):
 
     def post(self, request):
         request_data = request.data
-        print(request_data)
         if request_data["type"] == "message_api_delivered" or request_data["type"] == "message_api_failed":
             req = requests.post(settings.THIRD_PARTY_URL, json=request_data, headers={
                 "Content-Type": "application/json",
