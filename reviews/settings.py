@@ -70,6 +70,10 @@ TRACKINGLIST_CLEANUP_INTERVAL = environment_variables.TRACKINGLIST_CLEANUP_INTER
 
 THIRD_PARTY_URL = environment_variables.THIRD_PARTY_URL
 
+EZIFY_URL = environment_variables.EZIFY_URL
+
+EZIFY_MESSAGE = environment_variables.EZIFY_MESSAGE
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Database
