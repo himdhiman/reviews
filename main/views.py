@@ -28,9 +28,15 @@ class DefaultView(APIView):
                 + request_data["data"]["customer"]["phone_number"]
             )
             message = request_data["data"]["message"]["message"]
-            message = json.loads(message)
+            try:
+                message = json.loads(message)
+            except:
+                pass
             print(message)
             print(type(message))
+
+            if isinstance(message, dict):
+                message = message["title"]
 
             if message == "":
                 Response(status=status.HTTP_200_OK)
