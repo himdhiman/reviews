@@ -32,8 +32,6 @@ class DefaultView(APIView):
                 message = json.loads(message)
             except:
                 pass
-            print(message)
-            print(type(message))
 
             if isinstance(message, dict):
                 message = message["list_reply"]["title"]
@@ -50,8 +48,6 @@ class DefaultView(APIView):
                 req = requests.post(settings.EZIFY_URL, json=request_data, headers={
                     "Content-Type": "application/json",
                 })
-                print(request_data)
-                print(req)
            
             if IsInTrackingList.is_in_tracking_list(phone_number):
                 query_object = TrackingList.objects.get(phone_number=phone_number)
