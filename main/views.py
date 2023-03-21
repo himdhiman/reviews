@@ -36,7 +36,8 @@ class DefaultView(APIView):
             print(type(message))
 
             if isinstance(message, dict):
-                message = message["title"]
+                message = message["list_reply"]["title"]
+                request_data["data"]["message"]["message"] = message
 
             if message == "":
                 Response(status=status.HTTP_200_OK)
@@ -49,6 +50,7 @@ class DefaultView(APIView):
                 req = requests.post(settings.EZIFY_URL, json=request_data, headers={
                     "Content-Type": "application/json",
                 })
+                print(request_data)
                 print(req)
            
             if IsInTrackingList.is_in_tracking_list(phone_number):
