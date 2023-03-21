@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 import requests
 from rest_framework.views import APIView
@@ -27,7 +28,9 @@ class DefaultView(APIView):
                 + request_data["data"]["customer"]["phone_number"]
             )
             message = request_data["data"]["message"]["message"]
-            print(type(message))
+            message = json.loads(message)
+            print(message)
+
             if message == "":
                 Response(status=status.HTTP_200_OK)
 
