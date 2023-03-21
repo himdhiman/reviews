@@ -38,6 +38,7 @@ class DefaultView(APIView):
                 req = requests.post(settings.EZIFY_URL, json=request_data, headers={
                     "Content-Type": "application/json",
                 })
+                print(req)
            
             if IsInTrackingList.is_in_tracking_list(phone_number):
                 query_object = TrackingList.objects.get(phone_number=phone_number)
