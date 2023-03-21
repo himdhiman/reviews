@@ -27,6 +27,7 @@ class DefaultView(APIView):
                 + request_data["data"]["customer"]["phone_number"]
             )
             message = request_data["data"]["message"]["message"]
+            print(type(message))
             if message == "":
                 Response(status=status.HTTP_200_OK)
 
