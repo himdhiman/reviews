@@ -30,6 +30,7 @@ class DefaultView(APIView):
             message = request_data["data"]["message"]["message"]
             message = json.loads(message)
             print(message)
+            print(type(message))
 
             if message == "":
                 Response(status=status.HTTP_200_OK)
